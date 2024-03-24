@@ -1,0 +1,49 @@
+<html>
+<head>
+<title>Arithmetic operation</title>
+</head>
+<body>
+<form>
+<h1>Arithmetic operation</h1>
+Enter the number1 :<input type="text" id="num1"><br><br>
+Enter the number2 :<input type="text" id="num2"><br><br>
+<button onClick="add()">Add</button>
+<button onClick="sub()">Subtract</button>
+<button onClick="multi()">Multiply</button>
+<button onClick="div()">Divide</button><br><br>
+<p id = "result" > </p>
+</form>
+<script>
+var x,y;
+function getvalue()
+ {
+ x=parseInt(document.getElementById("num1").value);
+ y=parseInt(document.getElementById("num2").value);
+ }
+function add()
+ {
+ getvalue();
+ var sum = x+y;
+ alert ("sum is" +sum);
+ }
+function multi()
+ {
+ getvalue();
+ var multi = x*y;
+ alert ("product is" +multi);
+ }
+function div()
+ {
+ getvalue();
+ var div = x/y;
+ alert ("quotient is" +div);
+ }
+function sub()
+ {
+ getvalue();
+ var sub = x-y;
+ alert ("difference is" +sub);
+ }
+</script>
+</body>
+</html>

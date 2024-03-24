@@ -1,0 +1,24 @@
+<html>
+<body>
+Select the state from the list<br>
+<select id="mySelect" onChange="display()">
+<option value="Trivandrum"> Kerala</option>
+<option value="Channai"> Tamil nadu</option>
+<option value="Bangluru"> Karnadaka</option>
+<option value="Panaji"> Goa</option>
+<option value="Patna"> Bihar</option><option value="Bhopal"> Madhya
+Pradesh</option>
+<option value="Imphal"> Manipur</option>
+<option value="Shillong"> Meghalaya</option>
+<option value="Chandigarh"> Hariyana</option>
+</select><br><br>
+<input type="text" id="txt">
+<script>
+function display()
+{
+var x = document.getElementById("mySelect").value;
+document.getElementById("txt").value=x;
+}
+</script>
+</body>
+</html>

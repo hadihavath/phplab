@@ -1,0 +1,75 @@
+<html>
+<head>
+<title>Stock details</title>
+</head>
+<body>
+<form action="p8.php" method="post">
+<center>
+<h1>Stock Details</h1>
+<table>
+<tr>
+<td>Item code</td>
+<td><input type="text" name="code"></td>
+</tr>
+<tr>
+<td>Item name</td>
+<td><input type="text" name="name"></td>
+</tr>
+<tr>
+<td>Price</td>
+<td><input type="text" name="price"></td>
+</tr>
+<tr>
+<td></td>
+<td><input type="submit" value="SUBMIT"></td>
+</tr>
+</table>
+</center>
+</form>
+</body>
+</html>
+<html>
+<body>
+p8.php
+<html>
+<body>
+<?php
+$code=$_POST['code'];
+$name=$_POST['name'];
+$price=$_POST['price'];
+$con=pg_connect("host=localhost dbname=college user=postgres
+password=ihrd2020") or die("Cannot Connect");
+$sql="INSERT INTO product VALUES('$code','$name','$price')";
+$res=pg_query($con,$sql);
+if($res){
+echo "New record created successfully";
+}
+else
+{
+echo "Cannot insert".pg_last_error();
+exit(0);
+}
+$sql="SELECT * from product";
+$result=pg_query($con,$sql);
+if(!$result){
+echo "Could not run query:".pg_last_error();
+}
+echo"<h2>INVENTORY DETAILS</h2>";
+echo "<br>";
+echo "<table border=2>
+<tr>
+<th>Item code</th>
+<th>Item Name</th>
+<th>unit price</th>
+</tr><tr>";
+while($row=pg_fetch_row($result))
+{
+echo "<tr><td>$row[0]</td><td>$row[1]</td><td>$row[2]</td></tr>";
+}
+?>
+<form>
+<input type="button" name="click" value="Insert again"
+onclick="parent.location='p8.html'">
+</body>
+</form>
+</html>

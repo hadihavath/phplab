@@ -1,0 +1,82 @@
+<html>
+<head></head>
+<body>
+<form action="" method="post">
+<h1>BANK BALANCE</h1>
+<br><br><table>
+<tr><td>Account number : </td><td><input type="text" name="number"></td></tr>
+<tr><td>Amount : </td><td><input type="text" name="amount"></td></tr>
+<tr><td>Type of Transaction: </td><td><input type="radio" name="transaction"
+value="deposit">Deposit
+<input type="radio" name="transaction"
+value="withdrawal">Withdrawal</td></tr>
+<tr><td></td><td> <input type="submit" value="UPDATE"></td></tr></table>
+</form>
+</body>
+</html>
+<?php
+if($_POST)
+{
+$accno=$_POST['number'];
+$amount=$_POST['amount'];
+$transaction=$_POST['transaction'];
+$con=pg_connect("host=localhost dbname=college user=postgres
+password=ihrd2020") or
+die("Cannot Connect");
+if($con)
+{
+$qry="select * from bank where accno='$accno'";
+$result=pg_query($con,$qry);
+while($row=pg_fetch_row($result))
+{
+$oldbalance=$row[2];
+echo "<table border=1 align=center>
+<tr><th colspan=2>OLD BANK BALANCE</th></tr>
+<tr><td>Account No</td><td>$row[0]</td></tr>
+<tr><td>Balance</td><td>$row[2]</td></tr>
+</table><br>";
+if($transaction=="withdrawal")
+{
+$newbalance=$oldbalance-$amount;
+$updateqry="UPDATE bank set balance='$newbalance' where accno='$accno'";
+$updateresult=pg_query($con,$updateqry);
+if($updateresult)
+{
+//echo "Updated Bank Balance=$newbalance";
+echo "<table border=1 align=center>
+<tr><th colspan=2>NEW BANK BALANCE</th></tr>
+<tr><td>Account No</td><td>$row[0]</td></tr>
+<tr><td>Balance</td><td>$newbalance</td></tr>
+</table>";
+}
+else
+{
+echo "Updation Failed";
+}
+}
+else
+{
+$newbalance=$oldbalance+$amount;
+$updatequery="update bank set balance='$newbalance' where accno='$accno'";
+$updateresult=pg_query($con,$updatequery);
+if($updateresult)
+{
+echo "<table border=1 align=center>
+<tr>
+<th colspan=2>NEW BANK BALANCE</th>
+</tr>
+<tr>
+<td>Account Number</td>
+<td>$row[0]</td>
+</tr>
+<tr>
+<td>Balance</td>
+<td>$newbalance</td>
+</tr>
+</table>";
+}
+}
+}
+}
+}
+?>

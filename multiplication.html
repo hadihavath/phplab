@@ -1,0 +1,48 @@
+mul.html:
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Multiplication</title>
+<script
+src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+<body>
+<input type="number" placeholder="Enter number" id="number"
+onblur="mul(this.value)">
+<table border="1" align="center" style="text-align:center;">
+<tbody id="mul"></tbody>
+</table>
+</body>
+</html>
+<script>
+function mul(value)
+{
+$.ajax({
+dataType : "json",
+method:"POST",data:{value:value},
+url:"ajax.php",
+success:function(data)
+{
+$("#mul").html(data.result)
+}
+})
+}
+</script>
+
+
+
+
+ajax.php:
+<?php
+$html='';
+$number = $_POST['value'];
+$html.="<tr><td colspan='2'>Multiplication".$number."</td></tr>";
+for($j=1;$j<=10;$j++)
+{
+$html.="<tr><td>".$j." * ".$number." = ".$number*$j."</td></tr>";
+}
+echo json_encode(array('result' =>$html));
+?>

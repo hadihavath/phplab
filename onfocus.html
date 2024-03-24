@@ -1,0 +1,19 @@
+<html>
+<head>
+<title>Color</title>
+</head>
+<body>
+<input type="text" id="myTextbox" onfocus="changeColor(this)"
+onblur="resetColor(this)">
+<script>
+function changeColor(element) {
+element.style.color = "red";
+element.style.backgroundColor = "yellow";
+}
+function resetColor(element) {
+element.style.color = "green";
+element.style.backgroundColor = "pink";
+}
+</script>
+</body>
+</html>
